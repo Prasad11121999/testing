@@ -1,0 +1,55 @@
+<!-- app/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="col">
+            <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="input">
+                <span> input</span>
+            </div>
+            <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="output">
+                <span> output</span>
+            </div>           
+
+        </div>
+        <div class="col-right">
+            <div class="menu">
+                <ul>
+                    <li onclick="editor.changeModule('Home'); changeModule(event);" class="selected">Home</li>
+                </ul>
+            </div>
+            <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)" width="1200" height="720">
+
+                <div class="btn-export" onclick="Swal.fire({ title: 'Export',
+                html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'
+                })">Export</div>
+                <div class="btn-clear" onclick="editor.clearModuleSelected()">Clear</div>
+                <div class="btn-lock">
+                    <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
+                    <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');"
+                        style="display:none;"></i>
+                </div>
+                <div class="bar-zoom">
+                    <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
+                    <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
+                    <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
+
